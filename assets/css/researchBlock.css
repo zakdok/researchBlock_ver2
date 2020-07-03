@@ -66,22 +66,6 @@
     overflow: hidden;
     transition: .5s;
 }
-.research-list-area .list-grid-area .thumbnail::before{
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 3px solid transparent;
-    border-radius: 5px;
-    z-index: 20;
-    transition: .25s;
-}
-.research-list-area .list-grid-area .thumbnail:hover::before{
-    border-color: #000;
-}
 .research-list-area .list-grid-area .thumbnail img{
     width: 100%;
     transition: .5s;
