@@ -1,0 +1,115 @@
+.research-block-area{
+    padding: 115px 0 0;
+}
+.research-header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 15px 10px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #d9d9d9;
+    z-index: 9999;
+}
+.research-header .title-wrap{
+    margin: 0 0 5px;
+}
+.research-header .title-wrap .title{
+    color: #1b1b1b;
+    font-size: 20px;
+    font-weight: 700;
+}
+.research-colletion-area.active{
+    transition: .5s;
+}
+.research-colletion-area .swiper-container{}
+.research-colletion-area .swiper-wrapper{}
+.research-colletion-area .swiper-slide{
+    width: auto;
+}
+.research-colletion-area .swiper-slide .thumbnail{}
+.research-colletion-area .swiper-slide .thumbnail img{
+    height: 59px;
+}
+.research-list-area{
+    padding: 10px;
+    background-color: #ccc;
+}
+.research-list-area .list-grid-area{}
+.research-list-area .list-grid-area .grid-wrap{
+    margin: -10px -5px 0;
+}
+.research-list-area .list-grid-area .grid-con{
+    float: left;
+    width: 20%;
+    padding: 10px 5px 0;
+}
+.research-list-area .list-grid-area .grid-inner{}
+.research-list-area .list-grid-area .list-wrap{
+    margin: -10px 0 0;
+}
+.research-list-area .list-grid-area .list-con{
+    margin: 10px 0 0;
+}
+.research-list-area .list-grid-area .list-inner{
+    transition: .5s;
+}
+.research-list-area .list-grid-area .list-con.selected .list-inner{
+    position: fixed;
+    z-index: 99999;
+}
+.research-list-area .list-grid-area .thumbnail{
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: .5s;
+}
+.research-list-area .list-grid-area .thumbnail::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    z-index: 20;
+    transition: .25s;
+}
+.research-list-area .list-grid-area .thumbnail:hover::before{
+    border-color: #000;
+}
+.research-list-area .list-grid-area .thumbnail img{
+    width: 100%;
+    transition: .5s;
+}
+
+@media all and (max-width:1020px){
+    .research-list-area .list-grid-area .grid-con{
+        width: 25%;
+    }
+    .research-list-area .list-grid-area .grid-con:nth-child(5){
+        display: none;
+    }
+}
+
+@media all and (max-width:768px){
+    .research-list-area .list-grid-area .grid-con{
+        width: 33.33%;
+    }
+    .research-list-area .list-grid-area .grid-con:nth-child(4){
+        display: none;
+    }
+}
+
+@media all and (max-width:486px){
+    .research-list-area .list-grid-area .grid-con{
+        width: 50%;
+    }
+    .research-list-area .list-grid-area .grid-con:nth-child(3){
+        display: none;
+    }
+}
