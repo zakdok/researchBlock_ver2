@@ -8,20 +8,110 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/researchBlock.css">
     <script src="assets/plugin/swiper.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
 </head>
 <body>
     <article class="research-block-area">
         <div class="research-header">
             <div class="title-wrap">
                 <h3 class="title">Title area</h3>
+                <div class="button-wrap">
+                    <button id="moodBoardOpenBtn"><img src="assets/images/icon.png" alt="open mood board"></button>
+                </div>
             </div>
-            <div class="research-colletion-area">
+            <div class="research-collection-area">
                 <!-- Swiper -->
                 <div class="swiper-container">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper" id="researchCollection">
                         <div class="swiper-slide">
                             <button class="thumbnail">
                                 <img src="assets/images/example1.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example5.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example14.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example6.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example2.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example19.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example20.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example7.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example3.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example16.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example18.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example17.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example18.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example14.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example15.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example11.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example13.jpg" alt="thumbnail">
+                            </button>
+                        </div>
+                        <div class="swiper-slide">
+                            <button class="thumbnail">
+                                <img src="assets/images/example12.jpg" alt="thumbnail">
                             </button>
                         </div>
                     </div>
@@ -36,6 +126,25 @@
             </div>
         </div>
     </article>
+    <div id="moodBoardPopup" class="modal-popup-area">
+        <div class="modal-popup-wrap">
+            <div class="modal-popup-con">
+                <div class="modal-close-button-wrap">
+                    <button id="moodBoardCloseBtn"><span>close mood board</span></button>
+                </div>
+                <div class="modal-popup-inner">
+                    <div class="thumbnail-list-area">
+                        <ul id="moodBoardListArea" class="list-wrap"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-bottom-button-wrap">
+            <div class="modal-bottom-button-con">
+                <button id="moodBoardDeleteZone" class="delete" ondragover="moodBoardListDragOver(event)" ondrop="moodBoardListOnDrop(event)">삭제하기</button>
+            </div>
+        </div>
+    </div>
     <script src="assets/js/researchBlock.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var collectionSwiper = new Swiper('.research-colletion-area .swiper-container', {
+var collectionSwiper = new Swiper('.research-collection-area .swiper-container', {
     slidesPerView: 'auto',
     spaceBetween: 10,
 });
@@ -44,6 +44,28 @@ function createResearchContent(){
 
 createResearchContent();
 
+function addToListItems() {
+    var scrollTop = window.scrollY;
+    var itemWrappers = document.querySelectorAll('#researchList .grid-con');
+    var wrapperMinHeight = itemWrappers[0].clientHeight;
+    var screenHeight = screen.height;
+    for (var i = 0; i < itemWrappers.length; i++) {
+        if (itemWrappers[i].clientHeight < wrapperMinHeight) {
+            wrapperMinHeight = itemWrappers[i].clientHeight;
+        }
+    }
+    var addPointSum = wrapperMinHeight - screenHeight;
+
+    if (addPointSum < scrollTop + screenHeight) {
+        createResearchContent();
+        researchContentClickEvent();
+    }
+}
+
+window.onscroll = function () {
+    addToListItems();
+}
+
 function researchContentClickEvent(){
     var thumbnailClass = ".research-list-area .list-grid-area .thumbnail";
     var thumbnails = document.querySelectorAll(thumbnailClass);
@@ -53,12 +75,12 @@ function researchContentClickEvent(){
             var thumbnailWidth = thumbnailImage.width;
             var thumbnailHeight = thumbnailImage.height;
             var thumbnailSrc = thumbnailImage.src;
-            var collectionThumbnailHieght = document.querySelector('.research-colletion-area .swiper-slide .thumbnail img').height;
+            var collectionSlideWrapper = document.querySelector('.research-collection-area');
+            var collectionThumbnailHieght = collectionSlideWrapper.clientHeight;
             var thumbnailRatio = collectionThumbnailHieght / thumbnailHeight;
             var thumbnailTransitionWidth = Math.floor(thumbnailWidth * thumbnailRatio);
             var thumbnailContainer = thumbnail.closest('.list-con');
             var thumbnailInner = thumbnail.closest('.list-inner');
-            var collectionSlideWrapper = document.querySelector('.research-colletion-area');
 
             thumbnailContainer.classList.add('selected');
 
@@ -116,24 +138,98 @@ function researchContentClickEvent(){
 
 researchContentClickEvent();
 
-function addToListItems(){
-    var scrollTop = window.scrollY;
-    var itemWrappers = document.querySelectorAll('#researchList .grid-con');
-    var wrapperMinHeight = itemWrappers[0].clientHeight;
-    var screenHeight = screen.height;
-    for (var i = 0; i < itemWrappers.length; i++){
-        if (itemWrappers[i].clientHeight < wrapperMinHeight){
-            wrapperMinHeight = itemWrappers[0].clientHeight;
-        }
-    }
-    var addPointSum = wrapperMinHeight - screenHeight;
-
-    if (addPointSum < scrollTop + screenHeight){
-        createResearchContent();
-        researchContentClickEvent();
-    }
+function openMoodBoard(){
+    var btn = document.getElementById('moodBoardOpenBtn');
+    btn.addEventListener('click', function(){
+        openModalPopup('moodBoardPopup');
+        setTimeout(() => {
+            createMoodBoardItemList();
+            waitForImages();
+        }, 250);
+    });
 }
 
-window.onscroll = function(){
-    addToListItems();
+openMoodBoard();
+
+function closeMoodBoard() {
+    var btn = document.getElementById('moodBoardCloseBtn');
+    btn.addEventListener('click', function () {
+        closeModalPopup('moodBoardPopup');
+    });
+}
+
+closeMoodBoard();
+
+function openModalPopup(target) {
+    var elem = document.getElementById(target);
+    var html = document.getElementsByTagName('html');
+    elem.style.display = "block";
+    html[0].style.overflowY = "hidden";
+}
+
+function closeModalPopup(target) {
+    var elem = document.getElementById(target);
+    var html = document.getElementsByTagName('html');
+    elem.style.display = "none";
+    html[0].style.overflowY = "auto";
+}
+
+function createMoodBoardItemList(){
+    var collectionSlideList = document.querySelectorAll('.research-collection-area .swiper-slide');
+    var imgSrc;
+    var listHtml = '';
+    var moodBaordListWrapper = document.getElementById('moodBoardListArea');
+    collectionSlideList.forEach(function(item, idx){
+        imgSrc = item.querySelector('img').getAttribute('src');
+        listHtml += `
+            <li class="list-con">
+                <div class="list-inner">
+                    <button class="thumbnail"><img src="${imgSrc}" alt="thumbnail" id="moodBoardThumbnail-${idx}" draggable="true" ondragstart="moodBoardListDragStart(event)"></button>
+                </div>
+            </li>
+        `;
+    });
+    moodBaordListWrapper.innerHTML = listHtml;
+    let magicGrid = new MagicGrid({
+        container: "#moodBoardListArea",
+        static: true,
+        animate: false,
+        gutter: 0
+    });
+
+    magicGrid.listen();
+}
+
+createMoodBoardItemList();
+
+function moodBoardListDragStart(event){
+    event.dataTransfer.setData('text/plan', event.target.id);
+
+    var deleteDropZone = document.getElementById('moodBoardDeleteZone').closest('.modal-bottom-button-wrap');
+    deleteDropZone.style.display = 'block';
+}
+
+function moodBoardListDragOver(event){
+    event.preventDefault();
+}
+
+function moodBoardListOnDrop(event){
+    var id = event.dataTransfer.getData('text/plan');
+    var elDraggable = document.getElementById(id);
+    var elDropzone = event.target;
+
+    elDraggable.closest('.list-con').remove();
+
+    let magicGrid = new MagicGrid({
+        container: "#moodBoardListArea",
+        static: true,
+        animate: false,
+        gutter: 0
+    });
+
+    magicGrid.listen();
+    
+    elDropzone.closest('.modal-bottom-button-wrap').style.display = "none";
+
+    event.dataTransfer.clearData();
 }
