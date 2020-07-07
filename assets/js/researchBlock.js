@@ -4,15 +4,15 @@ var collectionSwiper = new Swiper('.research-collection-area .swiper-container',
 });
 var colElements = new Array();
 
-function createResearchContent(){
+function createResearchContent() {
     var researchContentWrapper = document.getElementById("researchList");
     var gridElements = "";
     var gridLength = 5;
     var colLength = 23;
     var idx;
 
-    if (researchContentWrapper.childElementCount === 0){
-        for (var i = 1; i <= gridLength; i++){
+    if (researchContentWrapper.childElementCount === 0) {
+        for (var i = 1; i <= gridLength; i++) {
             gridElements += `
             <li class="grid-con">
                 <div class="grid-inner">
@@ -39,7 +39,7 @@ function createResearchContent(){
             </li>`
         }
         researchContentWrapper.children[j].querySelector('.list-wrap').innerHTML = colElements[j];
-    }   
+    }
 }
 
 createResearchContent();
@@ -66,10 +66,10 @@ window.onscroll = function () {
     addToListItems();
 }
 
-function researchContentClickEvent(){
+function researchContentClickEvent() {
     var thumbnailClass = ".research-list-area .list-grid-area .thumbnail";
     var thumbnails = document.querySelectorAll(thumbnailClass);
-    thumbnails.forEach(function(thumbnail, idx){
+    thumbnails.forEach(function (thumbnail, idx) {
         thumbnail.addEventListener("click", function () {
             var thumbnailImage = thumbnail.querySelector('img');
             var thumbnailWidth = thumbnailImage.width;
@@ -92,12 +92,12 @@ function researchContentClickEvent(){
                 thumbnailInner.style.left = thumbnailLeft + 'px';
                 thumbnailInner.style.width = thumbnailContainer.clientWidth + 'px';
                 setTimeout(() => {
-                    thumbnailMoving();    
+                    thumbnailMoving();
                 }, 0);
             }
 
-            function collectionSlideMoving(){
-                var collectionThumbnailMarginRight = parseInt(collectionSlideWrapper.querySelector('.swiper-slide').style.marginRight.replace("px",""));
+            function collectionSlideMoving() {
+                var collectionThumbnailMarginRight = parseInt(collectionSlideWrapper.querySelector('.swiper-slide').style.marginRight.replace("px", ""));
                 var collectionThumbnailWidthSum = thumbnailTransitionWidth + collectionThumbnailMarginRight;
                 collectionSlideWrapper.style.paddingLeft = collectionThumbnailWidthSum + 'px';
                 collectionSlideWrapper.classList.add('active');
@@ -115,7 +115,7 @@ function researchContentClickEvent(){
                 }, 500);
             }
 
-            function addToCollectionSlide(){
+            function addToCollectionSlide() {
                 thumbnailContainer.remove();
                 collectionSlideWrapper.style.paddingLeft = '0px';
                 collectionSlideWrapper.classList.remove('active');
@@ -138,9 +138,9 @@ function researchContentClickEvent(){
 
 researchContentClickEvent();
 
-function openMoodBoard(){
+function openMoodBoard() {
     var btn = document.getElementById('moodBoardOpenBtn');
-    btn.addEventListener('click', function(){
+    btn.addEventListener('click', function () {
         openModalPopup('moodBoardPopup');
         setTimeout(() => {
             createMoodBoardItemList();
@@ -174,12 +174,12 @@ function closeModalPopup(target) {
     html[0].style.overflowY = "auto";
 }
 
-function createMoodBoardItemList(){
+function createMoodBoardItemList() {
     var collectionSlideList = document.querySelectorAll('.research-collection-area .swiper-slide');
     var imgSrc;
     var listHtml = '';
     var moodBaordListWrapper = document.getElementById('moodBoardListArea');
-    collectionSlideList.forEach(function(item, idx){
+    collectionSlideList.forEach(function (item, idx) {
         imgSrc = item.querySelector('img').getAttribute('src');
         listHtml += `
             <li class="list-con">
@@ -197,29 +197,30 @@ function createMoodBoardItemList(){
         gutter: 0
     });
 
-    magicGrid.listen();
+    imagesLoaded('#moodBoardListArea', function () {
+        magicGrid.listen();
+    });
 }
 
 createMoodBoardItemList();
 
-function moodBoardListDragStart(event){
+function moodBoardListDragStart(event) {
     event.dataTransfer.setData('text/plan', event.target.id);
 
     var deleteDropZone = document.getElementById('moodBoardDeleteZone').closest('.modal-bottom-button-wrap');
     deleteDropZone.style.display = 'block';
 }
 
-function moodBoardListDragOver(event){
+function moodBoardListDragOver(event) {
     event.preventDefault();
 }
 
-function moodBoardListOnDrop(event){
+function moodBoardListOnDrop(event) {
     var id = event.dataTransfer.getData('text/plan');
     var elDraggable = document.getElementById(id);
     var elDropzone = event.target;
 
     elDraggable.closest('.list-con').remove();
-
     let magicGrid = new MagicGrid({
         container: "#moodBoardListArea",
         static: true,
@@ -227,7 +228,9 @@ function moodBoardListOnDrop(event){
         gutter: 0
     });
 
-    magicGrid.listen();
+    imagesLoaded('#moodBoardListArea', function(){
+        magicGrid.listen();
+    });
     
     elDropzone.closest('.modal-bottom-button-wrap').style.display = "none";
 
