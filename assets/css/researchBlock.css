@@ -139,7 +139,7 @@
     position: relative;
     max-width: 960px;
     margin: 0 auto;
-    padding: 50px 10px 100px;
+    padding: 50px 10px;
     background-color: #fff;
 }
 .modal-popup-area .modal-close-button-wrap{

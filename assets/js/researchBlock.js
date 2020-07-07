@@ -190,15 +190,15 @@ function createMoodBoardItemList() {
         `;
     });
     moodBaordListWrapper.innerHTML = listHtml;
-    let magicGrid = new MagicGrid({
-        container: "#moodBoardListArea",
-        static: true,
-        animate: false,
-        gutter: 0
-    });
+    
 
     imagesLoaded('#moodBoardListArea', function () {
-        magicGrid.listen();
+        var iso = new Isotope('#moodBoardListArea', {
+            // options
+            itemSelector: '.list-con',
+            percentPosition: true,
+            layoutMode: 'masonry'
+        });
     });
 }
 
@@ -221,15 +221,14 @@ function moodBoardListOnDrop(event) {
     var elDropzone = event.target;
 
     elDraggable.closest('.list-con').remove();
-    let magicGrid = new MagicGrid({
-        container: "#moodBoardListArea",
-        static: true,
-        animate: false,
-        gutter: 0
-    });
 
     imagesLoaded('#moodBoardListArea', function(){
-        magicGrid.listen();
+        var iso = new Isotope('#moodBoardListArea', {
+            // options
+            itemSelector: '.list-con',
+            percentPosition: true,
+            layoutMode: 'masonry'
+        });
     });
     
     elDropzone.closest('.modal-bottom-button-wrap').style.display = "none";
