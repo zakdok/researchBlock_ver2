@@ -50,7 +50,7 @@ function addToListItems() {
     var wrapperMinHeight = itemWrappers[0].clientHeight;
     var screenHeight = screen.height;
     for (var i = 0; i < itemWrappers.length; i++) {
-        if (itemWrappers[i].clientHeight < wrapperMinHeight) {
+        if (itemWrappers[i].clientHeight < wrapperMinHeight && itemWrappers[i].clientHeight !== 0) {
             wrapperMinHeight = itemWrappers[i].clientHeight;
         }
     }
