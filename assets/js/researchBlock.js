@@ -182,9 +182,9 @@ function createMoodBoardItemList() {
     collectionSlideList.forEach(function (item, idx) {
         imgSrc = item.querySelector('img').getAttribute('src');
         listHtml += `
-            <li class="list-con">
-                <div class="list-inner">
-                    <button class="thumbnail"><img src="${imgSrc}" alt="thumbnail" id="moodBoardThumbnail-${idx}" draggable="true" ondragstart="moodBoardListDragStart(event)"></button>
+            <li class="modal-thumbnail-list-con">
+                <div class="modal-thumbnail-list-inner">
+                    <button class="modal-thumbnail"><img src="${imgSrc}" alt="thumbnail" id="moodBoardThumbnail-${idx}" draggable="true" ondragstart="moodBoardListDragStart(event)" ondragend="moodBoardListDragEnd(event)"></button>
                 </div>
             </li>
         `;
@@ -211,6 +211,11 @@ function moodBoardListDragStart(event) {
     deleteDropZone.style.display = 'block';
 }
 
+function moodBoardListDragEnd(event) {
+    var deleteDropZone = document.getElementById('moodBoardDeleteZone').closest('.modal-bottom-button-wrap');
+    deleteDropZone.style.display = 'none';
+}
+
 function moodBoardListDragOver(event) {
     event.preventDefault();
 }
@@ -220,7 +225,7 @@ function moodBoardListOnDrop(event) {
     var elDraggable = document.getElementById(id);
     var elDropzone = event.target;
 
-    elDraggable.closest('.list-con').remove();
+    elDraggable.closest('.modal-thumbnail-list-con').remove();
     let magicGrid = new MagicGrid({
         container: "#moodBoardListArea",
         static: true,
@@ -231,8 +236,6 @@ function moodBoardListOnDrop(event) {
     imagesLoaded('#moodBoardListArea', function(){
         magicGrid.listen();
     });
-    
-    elDropzone.closest('.modal-bottom-button-wrap').style.display = "none";
 
     event.dataTransfer.clearData();
 }

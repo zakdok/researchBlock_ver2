@@ -110,9 +110,7 @@
     }
 }
 .modal-popup-area{
-    /*
     display: none;
-    */
     position: fixed;
     left: 0;
     top: 0;
@@ -204,32 +202,32 @@
 .modal-popup-area .modal-bottom-button-wrap button.delete{
     background-color: red;
 }
-.modal-popup-area .thumbnail-list-area{
+.modal-popup-area .modal-thumbnail-list-area{
     margin: -10px -5px 0;
 }
-.modal-popup-area .thumbnail-list-area .list-wrap{}
-.modal-popup-area .thumbnail-list-area .list-con{
+.modal-popup-area .modal-thumbnail-list-area .modal-thumbnail-list-wrap{}
+.modal-popup-area .modal-thumbnail-list-area .modal-thumbnail-list-con{
     width: 20%;
 }
-.modal-popup-area .thumbnail-list-area .list-inner{
+.modal-popup-area .modal-thumbnail-list-area .modal-thumbnail-list-inner{
     padding: 10px 5px 0;
 }
-.modal-popup-area .thumbnail-list-area .thumbnail{
+.modal-popup-area .modal-thumbnail-list-area .modal-thumbnail{
     border-radius: 5px;
     overflow: hidden;
 }
-.modal-popup-area .thumbnail-list-area .thumbnail img{
+.modal-popup-area .modal-thumbnail-list-area .modal-thumbnail img{
     width: 100%;
 }
 
 @media all and (max-width: 768px){
-    .modal-popup-area .thumbnail-list-area .list-con{
+    .modal-popup-area .modal-thumbnail-list-area .modal-thumbnail-list-con{
         width: 33.33%;
     }
 }
 
 @media all and (max-width: 486px){
-    .modal-popup-area .thumbnail-list-area .list-con{
+    .modal-popup-area .modal-thumbnail-list-area .modal-thumbnail-list-con{
         width: 50%;
     }
 }
