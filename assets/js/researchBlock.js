@@ -144,7 +144,6 @@ function openMoodBoard() {
         openModalPopup('moodBoardPopup');
         setTimeout(() => {
             createMoodBoardItemList();
-            waitForImages();
         }, 250);
     });
 }
