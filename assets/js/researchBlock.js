@@ -55,8 +55,9 @@ function addToListItems() {
         }
     }
     var addPointSum = wrapperMinHeight - screenHeight;
+    var scrollTopSum = scrollTop + screenHeight;
 
-    if (addPointSum < scrollTop + screenHeight) {
+    if (addPointSum < scrollTopSum) {
         createResearchContent();
         researchContentClickEvent();
     }
@@ -174,34 +175,49 @@ function closeModalPopup(target) {
 }
 
 function createMoodBoardItemList() {
+    var moodBoardListWrapper = document.getElementById('moodBoardListArea');
     var collectionSlideList = document.querySelectorAll('.research-collection-area .swiper-slide');
-    var imgSrc;
-    var listHtml = '';
-    var moodBaordListWrapper = document.getElementById('moodBoardListArea');
-    collectionSlideList.forEach(function (item, idx) {
-        imgSrc = item.querySelector('img').getAttribute('src');
-        listHtml += `
-            <li class="modal-thumbnail-list-con">
-                <div class="modal-thumbnail-list-inner">
-                    <button class="modal-thumbnail"><img src="${imgSrc}" alt="thumbnail" id="moodBoardThumbnail-${idx}" draggable="true" ondragstart="moodBoardListDragStart(event)" ondragend="moodBoardListDragEnd(event)"></button>
-                </div>
-            </li>
+    var gridSizer = document.querySelector('.modal-popup-area .modal-thumbnail-grid-area .modal-thumbnail-grid-sizer').clientWidth;
+    var gridAreaWidth = moodBoardListWrapper.clientWidth;
+    var gridLength = Math.round(gridAreaWidth / gridSizer);
+    var gridHtml = '';
+    
+    for(var i = 0; i < gridLength; i++){
+        gridHtml += `
+        <li class="modal-thumbnail-grid-con">
+            <div class="modal-thumbnail-grid-inner">
+                <ul class="modal-thumbnail-list-wrap"></ul>
+            </div>
+        </li>
         `;
+    };
+    moodBoardListWrapper.innerHTML = gridHtml;
+    
+    var gridElements = document.querySelectorAll('.modal-popup-area .modal-thumbnail-grid-area .modal-thumbnail-grid-con');
+    var gridArr = new Array();
+    var gridIdx = 0;
+    var imgSrc;
+    collectionSlideList.forEach(function (elem, idx) {
+        imgSrc = elem.querySelector('img').getAttribute('src');
+        if (idx < gridLength){
+            gridArr.push("");
+        }
+        if (gridLength <= gridIdx){
+            gridIdx = 0;
+        }
+        gridArr[gridIdx] += `
+        <li class="modal-thumbnail-list-con">
+            <div class="modal-thumbnail-list-inner">
+                <button class="modal-thumbnail"><img src="${imgSrc}" alt="thumbnail" id="moodBoardThumbnail-${idx}" draggable="true" ondragstart="moodBoardListDragStart(event)" ondragend="moodBoardListDragEnd(event)"></button>
+            </div>
+        </li>
+        `;
+        gridIdx++;
     });
-    moodBaordListWrapper.innerHTML = listHtml;
-    let magicGrid = new MagicGrid({
-        container: "#moodBoardListArea",
-        static: true,
-        animate: false,
-        gutter: 0
-    });
-
-    imagesLoaded('#moodBoardListArea', function () {
-        magicGrid.listen();
+    gridElements.forEach(function (gridElem, gridIdx) {
+        gridElem.querySelector('.modal-thumbnail-list-wrap').innerHTML = gridArr[gridIdx];
     });
 }
-
-createMoodBoardItemList();
 
 function moodBoardListDragStart(event) {
     event.dataTransfer.setData('text/plan', event.target.id);
@@ -225,16 +241,6 @@ function moodBoardListOnDrop(event) {
     var elDropzone = event.target;
 
     elDraggable.closest('.modal-thumbnail-list-con').remove();
-    let magicGrid = new MagicGrid({
-        container: "#moodBoardListArea",
-        static: true,
-        animate: false,
-        gutter: 0
-    });
-
-    imagesLoaded('#moodBoardListArea', function(){
-        magicGrid.listen();
-    });
 
     event.dataTransfer.clearData();
 }
